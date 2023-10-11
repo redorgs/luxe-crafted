@@ -2,9 +2,10 @@ from db.db import DB
 import os
 
 class User:
-    def __listUser(self):
+    def __listUser(self, users = []):
+        users = users or DB('users')._get()
         no = 1
-        for user in DB('users')._get():
+        for user in users:
             print(f'{user[0]}) {user[1]} - {user[2]} - {user[3]}')
             no += 1
 
@@ -70,15 +71,10 @@ class User:
         print('\nSearch User\n')
         keyword = input('Search: ')
         users = DB('users')._where('name', 'like', keyword)._get()
-        no = 1
-
         os.system('clear')
-        for user in users:
-            print(f'{user[0]}) {user[1]} - {user[2]} - {user[3]}')
-            no += 1
+        self.__listUser(users)
 
         print(f'\nFound {len(users)} user\n')
-
 
 User().createNewUser()
 User().editUser()
