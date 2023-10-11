@@ -30,7 +30,7 @@ class DB(Connection):
             if not self.__operators.count(props[0]):
                 raise Exception("MySQL Error: The operator is invalid.")
 
-            if not value.isalnum():
+            if not all(char.isalnum() or char.isspace() for char in value):
                 raise Exception("MySQL Error: The value is invalid.")
 
             if props[0] == 'like':
@@ -42,7 +42,7 @@ class DB(Connection):
         else:
             value = str(props[0])
 
-            if not value.isalnum():
+            if not all(char.isalnum() or char.isspace() for char in value):
                raise Exception("MySQL Error: The value is invalid.")
 
             self.__query = f'WHERE {column} = %s'
