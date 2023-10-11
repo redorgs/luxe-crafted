@@ -5,23 +5,30 @@ class User:
     def __listUser(self):
         no = 1
         for user in DB('users')._get():
-            print(f'{user[0]}) {user[1]} - {user[2]}')
+            print(f'{user[0]}) {user[1]} - {user[2]} - {user[3]}')
             no += 1
 
     def __insert(self):
         name = input('Name: ')
         phone = input('Phone: ')
+        address = input('Address: ')
 
-        DB('users')._insert({'name': name, 'phone': phone})
+        DB('users')._insert({
+            'name': name,
+            'phone': phone,
+            'address': address
+        })
 
     def __update(self):
         id = input('ID: ')
         name = input('Name: ')
         phone = input('Phone: ')
+        address = input('Address: ')
         data = {}
 
         if name: data['name'] = name
-        if name: data['phone'] = phone
+        if phone: data['phone'] = phone
+        if address: data['address'] = address
 
         if len(data) > 0: DB('users')._where('id', id)._update(data)
 
@@ -67,7 +74,7 @@ class User:
 
         os.system('clear')
         for user in users:
-            print(f'{user[0]}) {user[1]} - {user[2]}')
+            print(f'{user[0]}) {user[1]} - {user[2]} - {user[3]}')
             no += 1
 
         print(f'\nFound {len(users)} user\n')
