@@ -80,10 +80,3 @@ User().createNewUser()
 User().editUser()
 User().deleteUser()
 User().searchUser()
-
-# Examples:
-# DB('users')._where('phone', '0811111')._get()
-# DB('users')._where('name', 'like', 'jack')._get()
-# DB('users')._where('id', 1)._delete()
-# DB('users')._where('id', 1)._update({'name': 'jill'})
-# DB('users')._insert({'name': 'billy', 'phone': 0855555})
