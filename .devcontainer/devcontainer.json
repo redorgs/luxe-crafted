@@ -28,7 +28,7 @@
     // "shutdownAction": "none",
 
     // Uncomment the next line to run commands after the container is created.
-    "postCreateCommand": "chown -R 1000:1000 /workspaces/python",
+    "postCreateCommand": "chmod u+x .devcontainer/postCommand.sh && ./.devcontainer/postCommand.sh",
 
     // Configure tool-specific properties.
     "customizations": {
