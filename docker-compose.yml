@@ -1,11 +1,17 @@
 version: "3"
 services:
     python-app:
-        image: python:3.8
+        build:
+            context: .
+            args:
+                UID: "${UID}"
+                GID: "${GID}"
         ports:
             - "8000:8000"
         depends_on:
             - mysql
+        volumes:
+            - ~/.gitconfig:/etc/gitconfig:ro
 
     mysql:
         image: mysql:5.7
