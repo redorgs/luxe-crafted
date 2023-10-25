@@ -14,37 +14,21 @@ class payment:
 
     def pilihanpembayaran(self):
         print("\nSilahkan pilih metode pembayaran anda")
-        print("1) Virtual account BCA")
-        print("2) Virtual account BRI")
-        print("3) Account GOJEK")
-        print("4) Account DANA")
+        method = DB('payment')._get()
+        for method in method:
+            print(f"{method[0]}) {method[1]}")
 
         user = input("\nPilih metode anda :   ")
         os.system("clear")
 
-        iscorrect = False
-        if user == "1":
-            text="Berikut Nomor Pembayaran VA BCA 222232344434234"
-        elif user == "2":
-            text="Berikut Nomor Pembayaran VA BRI 222232344434234"
-        elif user == "3":
-            text="Berikut Nomor Pembayaran via GOJEK 222232344434234"
-        elif user== "4":
-            text="Berikut Nomor Pembayaran via DANA 222232344434234"
+        pilihan = DB('payment')._where('id', user)._get()
 
-        else:
-            iscorrect = True
-
-
-        if iscorrect:
-            print("Inputan anda salah")
-
-        #Menampilkan hasil akhir
-        else:
+        if pilihan:
             paymentz.detailproduk(1)
-            print(text)
-
+            print(f"Berikut Nomor Pembayaran VA {pilihan[0][1]} {pilihan[0][2]}")
             print("\n-------------Silahkan kirim ke nomor yang tertera-------------\n")
+        else:
+            print('Pilihan anda salah')
 
 paymentz=payment()
 
