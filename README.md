@@ -7,4 +7,7 @@
 # Class Diagram
 
 ![Class Diagram](<Class Diagram.drawio.svg>)
-![Alt text](E-Commerce.svg)
+
+# ERD
+
+![Alt text](erd.svg)
