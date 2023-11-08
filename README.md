@@ -6,7 +6,7 @@
 
 # Class Diagram
 
-![Class Diagram](<Class Diagram.drawio.svg>)
+![Class Diagram](class-diagram.drawio.svg)
 
 # ERD
 
