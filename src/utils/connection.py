@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 class Connection:
     def __init__(self):
         self.__db_host = os.environ.get('DB_HOST')
@@ -21,11 +22,5 @@ class Connection:
         except mysql.connector.Error as e:
             print(f"MySQL Error: {e}")
 
-    def _commit(self):
-        self.__connection.commit()
-
-    def _closeConnection(self):
-        self.__connection.close()
-
-    def _getCursor(self):
-        return self.__connection.cursor()
+    def getConnection(self):
+        return self.__connection

@@ -1,82 +1,123 @@
-from db.db import DB
-import os
+import mysql.connector
+from utils.db import DB
+from utils.error_handler import StatusHandler
+
 
 class User:
-    def __listUser(self, users = []):
-        users = users or DB('users')._get()
-        no = 1
-        for user in users:
-            print(f'{user[0]}) {user[1]} - {user[2]} - {user[3]}')
-            no += 1
+    def __init__(self):
+        """
+        Constructor to initialize a User object with an optional ID parameter.
+        """
 
-    def __insert(self):
-        name = input('Name: ')
-        phone = input('Phone: ')
-        address = input('Address: ')
+        self.__table = 'users'
 
-        DB('users')._insert({
-            'name': name,
-            'phone': phone,
-            'address': address
-        })
+    def create(self, **kwargs):
+        """
+        Create a new user with the provided attributes.
+        """
 
-    def __update(self):
-        id = input('ID: ')
-        name = input('Name: ')
-        phone = input('Phone: ')
-        address = input('Address: ')
-        data = {}
+        status = StatusHandler()
 
-        if name: data['name'] = name
-        if phone: data['phone'] = phone
-        if address: data['address'] = address
+        try:
+            DB(self.__table).create(kwargs)
+        except mysql.connector.errors.DatabaseError as e:
+            status.setStatusErrDB(e)
 
-        if len(data) > 0: DB('users')._where('id', id)._update(data)
+        return status.payload
 
-    def __delete(self):
-        id = input('ID: ')
+    def get(self, *args, **kwargs):
+        """
+        Retrieve user data based on provided arguments (ID or specific columns).
+        """
 
-        DB('users')._where('id', id)._delete()
+        status = StatusHandler()
+        user = DB(self.__table)
 
-    def createNewUser(self):
-        os.system('clear')
-        self.__listUser()
-        print('\nCreate New User\n')
-        self.__insert()
-        os.system('clear')
-        self.__listUser()
-        print()
+        if len(args) > 0:
+            user.where('id', args[0])
+        elif len(kwargs) > 0:
+            for column in kwargs:
+                user.where(column, kwargs[column])
 
-    def editUser(self):
-        os.system('clear')
-        self.__listUser()
-        print('\nEdit User\n')
-        self.__update()
-        os.system('clear')
-        self.__listUser()
-        print()
+        try:
+            status.payload['data'] = user.get()
+        except mysql.connector.errors.DatabaseError as e:
+            status.setStatusErrDB(e)
 
-    def deleteUser(self):
-        os.system('clear')
-        self.__listUser()
-        print('\nDelete User\n')
-        self.__delete()
-        os.system('clear')
-        self.__listUser()
-        print()
+        return status.payload
 
-    def searchUser(self):
-        os.system('clear')
-        self.__listUser()
-        print('\nSearch User\n')
-        keyword = input('Search: ')
-        users = DB('users')._where('name', 'like', keyword)._get()
-        os.system('clear')
-        self.__listUser(users)
+    def search(self, value, column='email'):
+        """
+        Search for users based on a specific value in a column (default: email).
+        """
 
-        print(f'\nFound {len(users)} user\n')
+        status = StatusHandler()
 
-User().createNewUser()
-User().editUser()
-User().deleteUser()
-User().searchUser()
+        try:
+            status.payload['data'] = DB(self.__table).where(
+                column, 'like', f'%{value}%'
+            ).get()
+        except mysql.connector.errors.DatabaseError as e:
+            status.setStatusErrDB(e)
+
+        return status.payload
+
+    def update(self, id, **kwargs):
+        """
+        Update user information based on the provided attributes.
+        """
+
+        status = StatusHandler()
+
+        try:
+            DB(self.__table).where('id', id).update(kwargs)
+        except mysql.connector.errors.DatabaseError as e:
+            status.setStatusErrDB(e)
+
+        return status.payload
+
+    def delete(self, id):
+        """
+        Delete the user from the database.
+        """
+
+        status = StatusHandler()
+
+        try:
+            DB(self.__table).where('id', id).delete()
+        except mysql.connector.errors.DatabaseError as e:
+            status.setStatusErrDB(e)
+
+        return status.payload
+
+    def profile(self, id):
+        '''
+        Retrieves user profile data from the database using the provided 'id'.
+        '''
+
+        status = StatusHandler()
+
+        try:
+            status.payload['data'] = DB(
+                'user_profile').where('user_id', id).get()[0]
+        except mysql.connector.errors.DatabaseError as e:
+            status.setStatusErrDB(e)
+        except IndexError as e:
+            status.setStatusErrIndex(e)
+
+        return status.payload
+
+    def isSeller(self, id):
+        """
+        Check if the user is a seller.
+        """
+
+        status = StatusHandler()
+
+        try:
+            shop = DB('shop').where('user_id', id).get()
+            status.payload['data'] = True if len(shop) > 0 else False
+        except mysql.connector.errors.DatabaseError as e:
+            status.setStatusErrDB(e)
+
+        return status.payload
