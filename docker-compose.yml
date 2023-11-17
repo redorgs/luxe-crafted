@@ -24,7 +24,7 @@ services:
         ports:
             - "3306:3306"
         volumes:
-            - ./storage/database:/var/lib/mysql
+            - ./database:/var/lib/mysql
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
