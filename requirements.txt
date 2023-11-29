@@ -3,3 +3,5 @@ mysql-connector-python==8.2.0
 python-dotenv==1.0.0
 pytz==2023.3.post1
 ulid-py==1.1.0
+customtkinter==5.2.1
+packaging==23.2
