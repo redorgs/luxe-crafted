@@ -8,9 +8,12 @@ class TopBar(CTkFrame):
     """
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
-        self.configure(fg_color="transparent", corner_radius=0)
-        self.pack(fill="x")
+        self.configure()
 
+    def render(self):
+        """
+        Renders the top bar.
+        """
         CTkButton(
             self,
             text="Back",
@@ -20,4 +23,6 @@ class TopBar(CTkFrame):
             border_width=1,
             border_color='#333',
             corner_radius=0
-        ).pack(side="left", padx=10, pady=10)
+        ).pack()
+
+        return self

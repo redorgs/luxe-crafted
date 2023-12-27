@@ -1,8 +1,7 @@
-# pylint: disable=C0114, C0103, E0401
+# pylint: disable=C0114, E0611
 
 from customtkinter import set_appearance_mode, CTk
-from views.home import Home
-from views.navigation import Navigation
+from config import app
 
 class App(CTk):
     """
@@ -10,12 +9,10 @@ class App(CTk):
     """
     def __init__(self):
         super().__init__()
-        self.title("E Commerce")
-        self.geometry("1280x720")
+
+        self.title(app.NAME)
+        self.geometry(app.RESOLUTION)
         self.resizable(0,0)
-        set_appearance_mode("light")
 
-        Navigation(self, app_shell=self, active_frame=Home(self))
-
-app = App()
-app.mainloop()
+        # Development Only
+        set_appearance_mode("dark")
