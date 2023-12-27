@@ -5,6 +5,7 @@ from customtkinter import CTkFrame, CTkImage, CTkLabel, CTkButton
 from PIL import Image
 from views.home import Home
 from views.products import Products
+from views.detail_product import DetailProduct
 
 class Navigation(CTkFrame):
     """
@@ -34,7 +35,7 @@ class NavigationFrame(CTkFrame):
 
         NavigationButton(self, command=partial(self.changeView, Home), text="Home")
         NavigationButton(self, command=partial(self.changeView, Products), text="Products")
-        NavigationButton(self, text="About")
+        NavigationButton(self, command=partial(self.changeView, DetailProduct), text="Detail Product")
 
     def changeView(self, view):
         """
