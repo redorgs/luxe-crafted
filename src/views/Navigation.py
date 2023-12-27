@@ -6,6 +6,7 @@ from PIL import Image
 from views.home import Home
 from views.products import Products
 from views.detail_product import DetailProduct
+from views.cart import Cart
 
 class Navigation(CTkFrame):
     """
@@ -36,6 +37,7 @@ class NavigationFrame(CTkFrame):
         NavigationButton(self, command=partial(self.changeView, Home), text="Home")
         NavigationButton(self, command=partial(self.changeView, Products), text="Products")
         NavigationButton(self, command=partial(self.changeView, DetailProduct), text="Detail Product")
+        NavigationButton(self, command=partial(self.changeView, Cart), text="Cart")
 
     def changeView(self, view):
         """
