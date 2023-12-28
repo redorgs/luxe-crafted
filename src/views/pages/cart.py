@@ -25,31 +25,36 @@ class CartPage(CTkScrollableFrame):
             frame,
             text='Product',
             width=150,
-            fg_color=app.COLOR_DARK
+            fg_color=app.COLOR_DARK,
+            bg_color=app.COLOR_DARK,
         ).pack(side='left', ipadx=30, ipady=20)
         CTkLabel(
             frame,
             text='Price',
             width=50,
-            fg_color=app.COLOR_DARK
+            fg_color=app.COLOR_DARK,
+            bg_color=app.COLOR_DARK,
         ).pack(side='left', ipadx=30, ipady=20)
         CTkLabel(
             frame,
             text='Quantity',
             width=50,
-            fg_color=app.COLOR_DARK
+            fg_color=app.COLOR_DARK,
+            bg_color=app.COLOR_DARK,
         ).pack(side='left', ipadx=30, ipady=20)
         CTkLabel(
             frame,
             text='Subtotal',
             width=50,
-            fg_color=app.COLOR_DARK
+            fg_color=app.COLOR_DARK,
+            bg_color=app.COLOR_DARK,
         ).pack(side='left', ipadx=30, ipady=20)
         CTkLabel(
             frame,
             text='',
             width=50,
-            fg_color=app.COLOR_DARK
+            fg_color=app.COLOR_DARK,
+            bg_color=app.COLOR_DARK,
         ).pack(side='left', ipadx=30, ipady=20)
 
         return frame
@@ -105,7 +110,7 @@ class CartPage(CTkScrollableFrame):
             width=0,
             fg_color='transparent' if is_even else app.COLOR_DARK,
             hover_color=app.COLOR_DANGER,
-        ).pack(pady=16)
+        ).pack(pady=20)
 
         button.pack(side='left', ipadx=22)
 
