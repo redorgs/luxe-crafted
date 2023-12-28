@@ -5,19 +5,19 @@ from customtkinter import CTkFrame, CTkLabel, CTkButton
 from config import app
 from utils.navigation import switch_page
 from views.pages.home import HomePage
+from views.pages.products import ProductsPage
 
 class Navigation(CTkFrame):
     """
     The navigation of the application.
     """
     def __init__(self, **kwargs):
-        super().__init__(app.INSTANCE ,**kwargs)
+        super().__init__(app.APP_INSTANCE ,**kwargs)
 
         self.configure(
             fg_color=app.COLOR_DARK,
             bg_color=app.COLOR_DARK,
         )
-        self.list_frame = CTkFrame(self)
 
     def __logo(self):
         """
@@ -34,11 +34,24 @@ class Navigation(CTkFrame):
         """
         The links of the application.
         """
-        self.__link(HomePage)
+        frame = CTkFrame(self)
 
-        return self.list_frame
+        self.__link(frame, HomePage)
+        self.__link(frame, ProductsPage)
 
-    def __link(self, to):
+        return frame
+
+    def __menu(self):
+        """
+        The links of the application.
+        """
+        frame = CTkFrame(self)
+
+        self.__link(frame, HomePage)
+
+        return frame
+
+    def __link(self, master, to):
         """
         The button of the link.
         """
@@ -48,7 +61,7 @@ class Navigation(CTkFrame):
             button_color = app.COLOR_DARK
 
         button = CTkButton(
-            self.list_frame,
+            master,
             text=to().title,
             anchor='center',
             fg_color=button_color,
@@ -67,7 +80,6 @@ class Navigation(CTkFrame):
         """
         self.__logo().pack(pady=20)
         self.__list().pack()
-
-        self.pack(side="left", fill="y", expand=False)
+        self.__menu().pack(side="bottom")
 
         return self

@@ -10,7 +10,7 @@ class HomePage(CTkScrollableFrame):
     The home page of the application.
     """
     def __init__(self, **kwargs):
-        super().__init__(app.INSTANCE, **kwargs)
+        super().__init__(app.APP_INSTANCE, **kwargs)
 
         self.title = 'Home'
 

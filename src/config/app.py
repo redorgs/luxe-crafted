@@ -1,7 +1,8 @@
 # pylint: disable=C0114
 
 # APP
-INSTANCE = None
+APP_INSTANCE = None
+NAV_INSTANCE = None
 ACTIVE_PAGE = None
 NAME = "LuxeCrafted"
 RESOLUTION = "1280x720"

@@ -1,11 +1,11 @@
 # pylint: disable=C0114, E0401, E0611
 
 from functools import partial
-from PIL import Image
-from customtkinter import CTkFrame, CTkLabel, CTkImage, CTkButton
+from customtkinter import CTkFrame, CTkLabel, CTkButton
 from config import app
 from utils.navigation import switch_page
 from views.pages.detail_product import DetailProductPage
+from views.components.image import ImageComponent
 
 class Card(CTkFrame):
     """
@@ -22,19 +22,24 @@ class Card(CTkFrame):
         self.title = title
         self.price = price
         self.img_path = img_path
+        self.__size = 'md'
+
+    def set_size(self, size):
+        """
+        Sets the size of the card.
+        """
+        self.__size = size
+
+        return self
 
     def render(self):
         """
         Renders the product card.
         """
-        CTkLabel(
-            self,
-            image=CTkImage(
-                    light_image=Image.open(self.img_path),
-                    size=(220, 220)
-                ),
-            text=""
-        ).pack()
+        if self.__size == 'md':
+            ImageComponent(self, self.img_path, (220, 220)).render().pack()
+        elif self.__size == 'sm':
+            ImageComponent(self, self.img_path, (100, 100)).render().pack()
 
         CTkLabel(
             self,

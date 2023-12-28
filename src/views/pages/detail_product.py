@@ -14,7 +14,9 @@ class DetailProductPage(CTkScrollableFrame):
     The detail product page of the application.
     """
     def __init__(self, **kwargs):
-        super().__init__(app.INSTANCE, **kwargs)
+        super().__init__(app.APP_INSTANCE, **kwargs)
+
+        self.title = 'Products'
 
     def __product_name(self, master):
         """
@@ -210,14 +212,7 @@ class DetailProductPage(CTkScrollableFrame):
             bg_color=app.COLOR_DARK,
         )
 
-        CTkLabel(
-            frame,
-            image=CTkImage(
-                    light_image=Image.open('assets/images/avatar.jpg'),
-                    size=(50, 50),
-                ),
-            text="",
-        ).pack(side="left", anchor="nw", padx=(20, 0), pady=(20,0))
+        ImageComponent(frame, 'assets/images/avatar.jpg', (50, 50)).render().pack(side="left", anchor="nw", padx=(20, 0), pady=(20,0))
 
         self.__comment_description(frame).pack(side="left", padx=20, pady=(15, 20))
 
