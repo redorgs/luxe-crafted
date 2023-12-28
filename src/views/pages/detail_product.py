@@ -11,11 +11,13 @@ class DetailProductPage(CTkScrollableFrame):
     def __init__(self, **kwargs):
         super().__init__(app.INSTANCE, **kwargs)
 
+        self.configure(corner_radius=0)
+
     def render(self):
         """
         Renders the home page.
         """
 
-        TopBar(self).render().pack()
+        TopBar(self).render()
 
         return self
