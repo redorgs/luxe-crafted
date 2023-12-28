@@ -12,6 +12,7 @@ class HomePage(CTkScrollableFrame):
     def __init__(self, **kwargs):
         super().__init__(app.APP_INSTANCE, **kwargs)
 
+        self.configure(corner_radius=0)
         self.title = 'Home'
 
     def __hero(self):

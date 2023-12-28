@@ -6,6 +6,7 @@ from config import app
 from utils.navigation import switch_page
 from views.pages.home import HomePage
 from views.pages.products import ProductsPage
+from views.pages.cart import CartPage
 
 class Navigation(CTkFrame):
     """
@@ -47,7 +48,7 @@ class Navigation(CTkFrame):
         """
         frame = CTkFrame(self)
 
-        self.__link(frame, HomePage)
+        self.__link(frame, CartPage)
 
         return frame
 

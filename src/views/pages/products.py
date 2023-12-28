@@ -11,6 +11,7 @@ class ProductsPage(CTkScrollableFrame):
     def __init__(self, **kwargs):
         super().__init__(app.APP_INSTANCE, **kwargs)
 
+        self.configure(corner_radius=0)
         self.title = 'Products'
 
     def __products(self):
