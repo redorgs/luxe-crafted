@@ -1,8 +1,9 @@
 # pylint: disable=C0114, E0401, E0611
 
-from customtkinter import CTkScrollableFrame, CTkFrame, CTkLabel, CTkButton, CTkEntry
+from customtkinter import CTkScrollableFrame, CTkFrame, CTkLabel, CTkButton
 from config import app
 from views.components.top_bar import TopBarComponent
+from views.components.checkout_detail import CheckoutDetailComponent
 
 class CartPage(CTkScrollableFrame):
     """
@@ -132,88 +133,6 @@ class CartPage(CTkScrollableFrame):
 
         return frame
 
-    def __cart_total(self, master):
-        """
-        Renders the cart total.
-        """
-        frame = CTkFrame(
-            master,
-            fg_color=app.COLOR_SECONDARY_LIGHT,
-            bg_color=app.COLOR_SECONDARY_LIGHT,
-            corner_radius=0
-        )
-
-        CTkLabel(
-            frame,
-            text='Cart Total',
-            text_color=app.COLOR_DARK,
-        ).pack(side='left', padx=(20,0), pady=20)
-
-        CTkLabel(
-            frame,
-            text='50000',
-            text_color=app.COLOR_DARK,
-        ).pack(side='right', padx=(0,20), pady=20)
-
-        return frame
-
-    def __coupon_code(self, master):
-        """
-        Renders the coupon code.
-        """
-        frame = CTkFrame(master, corner_radius=0)
-
-        CTkLabel(
-            frame,
-            text='Coupon Code',
-        ).pack(side='left', padx=20, pady=20)
-
-        CTkEntry(
-            frame,
-            placeholder_text='Enter coupon code',
-        ).pack(side='right', fill='x', expand=True, padx=20, pady=20)
-
-        return frame
-
-    def __checkout(self, master):
-        """
-        Renders the checkout button.
-        """
-        frame = CTkFrame(
-            master,
-            fg_color=app.COLOR_SECONDARY_LIGHT,
-            corner_radius=0
-        )
-
-        CTkButton(
-            frame,
-            text='Checkout',
-            fg_color=app.COLOR_DARK,
-            bg_color=app.COLOR_DARK,
-            hover_color='#222',
-            corner_radius=0
-        ).pack(fill='x', ipady=20)
-
-        return frame
-
-    def __cart_total_frame(self, master):
-        """
-        Renders the cart total.
-        """
-        frame = CTkFrame(master)
-
-        CTkLabel(
-            frame,
-            text='Cart Totals',
-            fg_color=app.COLOR_DARK,
-        ).pack(fill='x')
-
-        self.__coupon_code(frame).pack(fill='x')
-        self.__cart_total(frame).pack(fill='x')
-        self.__checkout(frame).pack(fill='x')
-
-        return frame
-
     def render(self):
         """
         Renders the home page.
@@ -221,6 +140,6 @@ class CartPage(CTkScrollableFrame):
 
         TopBarComponent(self).render()
         self.__table(self).pack(side='left', padx=(30,0), pady=(30,0))
-        self.__cart_total_frame(self).pack(side='right', padx=30, pady=(30,0), fill='both', expand=True)
+        CheckoutDetailComponent(self).render().pack(side='right', padx=30, pady=(30,0), fill='both', expand=True)
 
         return self
