@@ -51,9 +51,7 @@ class HomePage(CTkScrollableFrame):
         """
         Renders the featured products of the home page.
         """
-        frame = CTkFrame(
-            self
-        )
+        frame = CTkFrame(self)
 
         Card(frame, 'Chairs', '50000', "assets/images/product1.jpg").render().grid(row=0, column=0)
         Card(frame, 'Bean Bags', '75000', "assets/images/product1.jpg").render().grid(row=0, column=1)
@@ -90,7 +88,6 @@ class HomePage(CTkScrollableFrame):
             text="Discover",
             fg_color=app.COLOR_SECONDARY_DARK,
             bg_color=app.COLOR_SECONDARY_DARK,
-            corner_radius=0,
             hover_color=app.COLOR_DARK,
         ).pack(pady=(30, 50))
 

@@ -14,11 +14,10 @@ class Navigation(CTkFrame):
         super().__init__(app.INSTANCE ,**kwargs)
 
         self.configure(
-            corner_radius=0,
             fg_color=app.COLOR_DARK,
             bg_color=app.COLOR_DARK,
         )
-        self.list_frame = CTkFrame(self, corner_radius=0)
+        self.list_frame = CTkFrame(self)
 
     def __logo(self):
         """
@@ -56,7 +55,6 @@ class Navigation(CTkFrame):
             bg_color=button_color,
             hover=False,
             width=200,
-            corner_radius=0,
             command=partial(switch_page, to)
         )
         button.pack(ipady=5)
@@ -69,5 +67,7 @@ class Navigation(CTkFrame):
         """
         self.__logo().pack(pady=20)
         self.__list().pack()
+
+        self.pack(side="left", fill="y", expand=False)
 
         return self

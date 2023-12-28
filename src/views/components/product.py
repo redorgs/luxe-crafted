@@ -15,7 +15,6 @@ class Card(CTkFrame):
         super().__init__(master, **kwargs)
 
         self.configure(
-            corner_radius=0,
             fg_color=app.COLOR_LIGHT,
             bg_color=app.COLOR_LIGHT,
         )
@@ -58,6 +57,7 @@ class Card(CTkFrame):
             fg_color=app.COLOR_DARK,
             bg_color=app.COLOR_DARK,
             hover_color=app.COLOR_SECONDARY_DARK,
+            corner_radius=0,
             command=partial(switch_page, DetailProductPage)
         ).pack(fill="both", ipady=10, pady=(10, 0))
 

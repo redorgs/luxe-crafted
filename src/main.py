@@ -8,6 +8,8 @@ from utils.navigation import switch_page
 
 if __name__ == "__main__":
     app.INSTANCE = App()
+
     switch_page(HomePage)
-    Navigation().render().pack(side="left", fill="y", expand=False)
+    Navigation().render()
+
     app.INSTANCE.mainloop()

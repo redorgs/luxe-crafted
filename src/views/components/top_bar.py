@@ -6,14 +6,13 @@ from customtkinter import CTkFrame, CTkButton
 from config import app
 from utils.navigation import switch_page
 
-class TopBar(CTkFrame):
+class TopBarComponent(CTkFrame):
     """
     The top bar of the application.
     """
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
         self.configure(
-            corner_radius=0,
             fg_color=app.COLOR_DARK,
             bg_color=app.COLOR_DARK
         )
@@ -28,7 +27,6 @@ class TopBar(CTkFrame):
             self,
             text="Back",
             width=70,
-            corner_radius=0,
             fg_color=app.COLOR_LIGHT,
             bg_color=app.COLOR_LIGHT,
             text_color=app.COLOR_SECONDARY_DARK,
