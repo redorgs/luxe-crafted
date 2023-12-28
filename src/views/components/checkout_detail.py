@@ -19,8 +19,8 @@ class CheckoutDetailComponent(CTkFrame):
         """
         frame = CTkFrame(
             master,
-            fg_color=app.COLOR_SECONDARY_LIGHT,
-            bg_color=app.COLOR_SECONDARY_LIGHT,
+            fg_color=app.COLOR_LIGHT,
+            bg_color=app.COLOR_LIGHT,
             corner_radius=0
         )
 
@@ -62,7 +62,6 @@ class CheckoutDetailComponent(CTkFrame):
         """
         frame = CTkFrame(
             master,
-            fg_color=app.COLOR_SECONDARY_LIGHT,
             corner_radius=0
         )
 
