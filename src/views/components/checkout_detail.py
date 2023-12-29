@@ -6,12 +6,16 @@ from customtkinter import CTkFrame, CTkLabel, CTkButton, CTkEntry
 from utils.navigation import switch_page
 from config import app
 
+
 class CheckoutDetailComponent(CTkFrame):
     """
     Checkout detail component.
     """
-    def __init__(self, master, **kwargs):
+
+    def __init__(self, master, total, **kwargs):
         super().__init__(master, **kwargs)
+
+        self.total = total
 
     def __cart_total(self, master):
         """
@@ -28,13 +32,13 @@ class CheckoutDetailComponent(CTkFrame):
             frame,
             text='Cart Total',
             text_color=app.COLOR_DARK,
-        ).pack(side='left', padx=(20,0), pady=20)
+        ).pack(side='left', padx=(20, 0), pady=20)
 
         CTkLabel(
             frame,
-            text='50000',
+            text=self.total,
             text_color=app.COLOR_DARK,
-        ).pack(side='right', padx=(0,20), pady=20)
+        ).pack(side='right', padx=(0, 20), pady=20)
 
         return frame
 
@@ -72,7 +76,15 @@ class CheckoutDetailComponent(CTkFrame):
             bg_color=app.COLOR_DARK,
             hover_color='#222',
             corner_radius=0,
-            command=partial(switch_page, import_module('views.pages.checkout').CheckoutPage)
+            command=partial(
+                switch_page,
+                partial(
+                    import_module(
+                        'views.pages.checkout'
+                    ).CheckoutPage,
+                    self.total
+                )
+            )
         ).pack(fill='x', ipady=20)
 
         return frame

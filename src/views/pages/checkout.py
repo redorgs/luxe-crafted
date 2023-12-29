@@ -5,15 +5,19 @@ from config import app
 from views.components.top_bar import TopBarComponent
 from views.components.checkout_detail import CheckoutDetailComponent
 
+
 class CheckoutPage(CTkScrollableFrame):
     """
     The home page of the application.
     """
-    def __init__(self, **kwargs):
+
+    def __init__(self, total, **kwargs):
         super().__init__(app.APP_INSTANCE, **kwargs)
 
         self.configure(corner_radius=0)
         self.title = 'Cart'
+
+        self.total = total
 
     def __input(self, master, width):
         """
@@ -40,7 +44,7 @@ class CheckoutPage(CTkScrollableFrame):
         """
         frame = CTkFrame(master, corner_radius=0, fg_color='transparent')
 
-        self.__input(frame, 300).pack(side='left', padx=(0,30))
+        self.__input(frame, 300).pack(side='left', padx=(0, 30))
         self.__input(frame, 300).pack(side='right')
 
         return frame
@@ -56,11 +60,11 @@ class CheckoutPage(CTkScrollableFrame):
             text='Billing Details',
         ).pack(anchor='w')
 
-        self.__row(frame).pack(pady=(0,20))
-        self.__row(frame).pack(pady=(0,20))
-        self.__row(frame).pack(pady=(0,20))
-        self.__row(frame).pack(pady=(0,20))
-        self.__row(frame).pack(pady=(0,20))
+        self.__row(frame).pack(pady=(0, 20))
+        self.__row(frame).pack(pady=(0, 20))
+        self.__row(frame).pack(pady=(0, 20))
+        self.__row(frame).pack(pady=(0, 20))
+        self.__row(frame).pack(pady=(0, 20))
         self.__row(frame).pack()
 
         return frame
@@ -71,7 +75,13 @@ class CheckoutPage(CTkScrollableFrame):
         """
 
         TopBarComponent(self).render()
-        self.__form(self).pack(side='left', padx=(30,0), pady=(30,0))
-        CheckoutDetailComponent(self).render().pack(side='right', padx=30, pady=(30,0), fill='both', expand=True)
+        self.__form(self).pack(side='left', padx=(30, 0), pady=(30, 0))
+        CheckoutDetailComponent(self, self.total).render().pack(
+            side='right',
+            padx=30,
+            pady=(30, 0),
+            fill='both',
+            expand=True
+        )
 
         return self

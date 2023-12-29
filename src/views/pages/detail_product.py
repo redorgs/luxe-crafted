@@ -1,13 +1,16 @@
 # pylint: disable=C0114, E0401, E0611
 
+from functools import partial
 import importlib
 from tkinter import Canvas
 from customtkinter import CTkScrollableFrame, CTkFrame, CTkLabel, CTkButton, CTkTabview
 from CTkTable import CTkTable
 from config import app
+from utils.db import DB
 from views.components.top_bar import TopBarComponent
 from views.components.image import ImageComponent
 from views.components.rating import RatingComponent
+from utils.navigation import switch_page
 
 
 class DetailProductPage(CTkScrollableFrame):
@@ -15,13 +18,14 @@ class DetailProductPage(CTkScrollableFrame):
     The detail product page of the application.
     """
 
-    def __init__(self, product, **kwargs):
+    def __init__(self, product, total_product_in_cart=None, **kwargs):
         super().__init__(app.APP_INSTANCE, **kwargs)
 
         self.configure(corner_radius=0)
         self.title = 'Products'
 
         self.product = product
+        self.total_product_in_cart = total_product_in_cart if total_product_in_cart else 1
 
     def __product_name(self, master):
         """
@@ -75,6 +79,50 @@ class DetailProductPage(CTkScrollableFrame):
             justify="left"
         )
 
+    def __subtract_product(self):
+        """
+        Subtracts the product.
+        """
+        if self.total_product_in_cart > 1:
+            self.total_product_in_cart -= 1
+        switch_page(
+            partial(
+                importlib.import_module(
+                    'views.pages.detail_product'
+                ).DetailProductPage,
+                self.product, self.total_product_in_cart
+            )
+        )
+
+    def __add_product(self):
+        """
+        Adds the product.
+        """
+        self.total_product_in_cart += 1
+        switch_page(
+            partial(
+                importlib.import_module(
+                    'views.pages.detail_product'
+                ).DetailProductPage,
+                self.product, self.total_product_in_cart
+            )
+        )
+
+    def __add_product_to_cart_process(self):
+        """
+        Adds the product to cart process.
+        """
+        DB('product_cart').create({
+            'user_id': 1,
+            'product_id': self.product[0],
+            'quantity': self.total_product_in_cart,
+        })
+        switch_page(
+            importlib.import_module(
+                'views.pages.cart'
+            ).CartPage
+        )
+
     def __add_product_to_cart(self, master):
         """
         Renders the add product to cart section.
@@ -88,12 +136,13 @@ class DetailProductPage(CTkScrollableFrame):
             fg_color=app.COLOR_LIGHT,
             bg_color=app.COLOR_LIGHT,
             text_color=app.COLOR_SECONDARY_DARK,
-            hover=False
+            hover=False,
+            command=self.__subtract_product
         ).pack(side="left")
 
         CTkLabel(
             frame,
-            text="1",
+            text=str(self.total_product_in_cart),
             font=("Verdana", 14),
             fg_color=app.COLOR_LIGHT,
             bg_color=app.COLOR_LIGHT,
@@ -107,7 +156,8 @@ class DetailProductPage(CTkScrollableFrame):
             fg_color=app.COLOR_LIGHT,
             bg_color=app.COLOR_LIGHT,
             text_color=app.COLOR_SECONDARY_DARK,
-            hover=False
+            hover=False,
+            command=self.__add_product
         ).pack(side="left")
 
         CTkButton(
@@ -117,7 +167,8 @@ class DetailProductPage(CTkScrollableFrame):
             fg_color=app.COLOR_LIGHT,
             bg_color=app.COLOR_LIGHT,
             text_color=app.COLOR_SECONDARY_DARK,
-            hover=False
+            hover=False,
+            command=self.__add_product_to_cart_process
         ).pack(side="left", padx=(20, 0), ipadx=20)
 
         return frame
