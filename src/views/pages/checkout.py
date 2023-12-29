@@ -76,7 +76,7 @@ class CheckoutPage(CTkScrollableFrame):
 
         TopBarComponent(self).render()
         self.__form(self).pack(side='left', padx=(30, 0), pady=(30, 0))
-        CheckoutDetailComponent(self, self.total).render().pack(
+        CheckoutDetailComponent(self, self.total, 'Checkout').render().pack(
             side='right',
             padx=30,
             pady=(30, 0),

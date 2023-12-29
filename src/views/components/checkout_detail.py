@@ -12,10 +12,11 @@ class CheckoutDetailComponent(CTkFrame):
     Checkout detail component.
     """
 
-    def __init__(self, master, total, **kwargs):
+    def __init__(self, master, total, button_text, **kwargs):
         super().__init__(master, **kwargs)
 
         self.total = total
+        self.button_text = button_text
 
     def __cart_total(self, master):
         """
@@ -60,6 +61,24 @@ class CheckoutDetailComponent(CTkFrame):
 
         return frame
 
+    def __payment_method(self, master):
+        """
+        Renders the coupon code.
+        """
+        frame = CTkFrame(master, corner_radius=0)
+
+        CTkLabel(
+            frame,
+            text='Payment',
+        ).pack(side='left', padx=20, pady=20)
+
+        CTkLabel(
+            frame,
+            text='Cash On Delivery',
+        ).pack(side='right', padx=20, pady=20)
+
+        return frame
+
     def __checkout(self, master):
         """
         Renders the checkout button.
@@ -71,7 +90,7 @@ class CheckoutDetailComponent(CTkFrame):
 
         CTkButton(
             frame,
-            text='Checkout',
+            text=self.button_text,
             fg_color=app.COLOR_DARK,
             bg_color=app.COLOR_DARK,
             hover_color='#222',
@@ -99,7 +118,11 @@ class CheckoutDetailComponent(CTkFrame):
             fg_color=app.COLOR_DARK,
         ).pack(fill='x')
 
-        self.__coupon_code(self).pack(fill='x')
+        if self.button_text == 'Place Order':
+            self.__coupon_code(self).pack(fill='x')
+        else:
+            self.__payment_method(self).pack(fill='x')
+
         self.__cart_total(self).pack(fill='x')
         self.__checkout(self).pack(fill='x')
 

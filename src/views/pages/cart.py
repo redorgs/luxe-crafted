@@ -68,7 +68,7 @@ class CartPage(CTkScrollableFrame):
         TopBarComponent(self).render()
         TableComponent(self, self.thead, self.tbody).render().pack(
             side='left', padx=(30, 0), pady=(30, 0), anchor='n')
-        CheckoutDetailComponent(self, self.total).render().pack(
+        CheckoutDetailComponent(self, self.total, 'Place Order').render().pack(
             side='right', padx=30, pady=(30, 0), fill='both', expand=True)
 
         return self
