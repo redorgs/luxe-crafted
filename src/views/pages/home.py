@@ -19,7 +19,7 @@ class HomePage(CTkScrollableFrame):
         """
         Renders the hero section of the home page.
         """
-        hero_image = Image.open("assets/images/hero.jpg")
+        hero_image = Image.open("assets/images/hero.jpeg")
         image_height = hero_image.size[1]
         hero_image = hero_image.crop((
             0,

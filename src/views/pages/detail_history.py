@@ -21,14 +21,20 @@ class DetailHistoryPage(CTkScrollableFrame):
         """
 
         TopBarComponent(self).render()
-        value = [
-            ['Recent History'],
+        history = [
             ['1. Order #8912 placed on 12/12/2020'],
             ['2. Order #8912 processed on 12/12/2020'],
             ['3. Order #8912 shipped on 12/12/2020'],
             ['4. Order #8912 delivered on 12/12/2020'],
-            ['Older History'],
         ]
+
+        value = [['Recent History']]
+
+        for item in history:
+            text = '    ' + item[0]
+            value.append([text])
+
+        value.append(['Older History'])
 
         table = CTkTable(self, row=len(value), column=1, values=value, justify='left', anchor='w')
         table.pack(fill='both', expand=True, padx=30, pady=(30,0))
