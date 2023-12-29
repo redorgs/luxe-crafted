@@ -3,10 +3,12 @@
 from customtkinter import CTkFrame
 from views.components.image import ImageComponent
 
+
 class RatingComponent(CTkFrame):
     """
     The rating component that is used to display ratings.
     """
+
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
@@ -14,10 +16,11 @@ class RatingComponent(CTkFrame):
         """
         Renders the rating.
         """
-        ImageComponent(self, 'assets/images/star.png', (15, 15)).render().pack(side="left")
-        ImageComponent(self, 'assets/images/star.png', (15, 15)).render().pack(side="left", padx=(5,0))
-        ImageComponent(self, 'assets/images/star.png', (15, 15)).render().pack(side="left", padx=(5,0))
-        ImageComponent(self, 'assets/images/star.png', (15, 15)).render().pack(side="left", padx=(5,0))
-        ImageComponent(self, 'assets/images/star.png', (15, 15)).render().pack(side="left", padx=(5,0))
+        for i in range(5):
+            ImageComponent(
+                self,
+                'assets/images/icons/star.png',
+                (15, 15)
+            ).render().pack(side="left", padx=0 if i == 0 else (5, 0))
 
         return self

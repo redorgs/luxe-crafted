@@ -2,12 +2,15 @@
 
 from customtkinter import CTkScrollableFrame, CTkFrame
 from config import app
+from utils.db import DB
 from views.components.product import Card
+
 
 class ProductsPage(CTkScrollableFrame):
     """
     The home page of the application.
     """
+
     def __init__(self, **kwargs):
         super().__init__(app.APP_INSTANCE, **kwargs)
 
@@ -20,14 +23,15 @@ class ProductsPage(CTkScrollableFrame):
         """
         frame = CTkFrame(self)
 
-        for i in range(0, 10):
-            Card(frame, 'Chairs', '50000', "assets/images/product2.jpg").set_size('sm').render().grid(row=i, column=0)
-            Card(frame, 'Bean Bags', '75000', "assets/images/product1.jpg").set_size('sm').render().grid(row=i, column=1)
-            Card(frame, 'Sofas', '100000', "assets/images/product1.jpg").set_size('sm').render().grid(row=i, column=2)
-            Card(frame, 'Tables', '150000', "assets/images/product1.jpg").set_size('sm').render().grid(row=i, column=3)
-            Card(frame, 'Chairs', '50000', "assets/images/product1.jpg").set_size('sm').render().grid(row=i, column=4)
-            Card(frame, 'Bean Bags', '75000', "assets/images/product1.jpg").set_size('sm').render().grid(row=i, column=5)
+        products = DB('products').get()
 
+        for i in range(0, len(products), 6):
+            product_chunk = products[i:i+6]
+            for j, product in enumerate(product_chunk):
+                Card(
+                    frame,
+                    product,
+                ).set_size('sm').render().grid(row=i//6, column=j)
 
         return frame
 

@@ -2,13 +2,16 @@
 
 from PIL import Image
 from customtkinter import CTkFrame, CTkLabel, CTkImage, CTkScrollableFrame, CTkButton
+from utils.db import DB
 from views.components.product import Card
 from config import app
+
 
 class HomePage(CTkScrollableFrame):
     """
     The home page of the application.
     """
+
     def __init__(self, **kwargs):
         super().__init__(app.APP_INSTANCE, **kwargs)
 
@@ -47,16 +50,10 @@ class HomePage(CTkScrollableFrame):
         """
         frame = CTkFrame(self)
 
-        Card(frame, 'Chairs', '50000', "assets/images/products/product1.jpg").render().grid(row=0, column=0)
-        Card(frame, 'Bean Bags', '75000', "assets/images/products/product1.jpg").render().grid(row=0, column=1)
-        Card(frame, 'Sofas', '100000', "assets/images/products/product1.jpg").render().grid(row=0, column=2)
-        Card(frame, 'Tables', '150000', "assets/images/products/product1.jpg").render().grid(row=0, column=3)
+        products = DB('products').get()
 
-        Card(frame, 'Dressers', '50000', "assets/images/products/product1.jpg").render().grid(row=1, column=0)
-        Card(frame, 'Beds', '75000', "assets/images/products/product1.jpg").render().grid(row=1, column=1)
-        Card(frame, 'Mattresses', '100000', "assets/images/products/product1.jpg").render().grid(row=1, column=2)
-        Card(frame, 'Nightstands', '150000', "assets/images/products/product1.jpg").render().grid(row=1, column=3)
-
+        for i, product in enumerate(products[:4]):
+            Card(frame, product).render().grid(row=0, column=i)
 
         return frame
 
@@ -75,7 +72,7 @@ class HomePage(CTkScrollableFrame):
             text="Discover the latest trends in fashion and lifestyle.",
             text_color=app.COLOR_SECONDARY_DARK,
             font=("Verdana", 25, "bold"),
-        ).pack(pady=(40,0))
+        ).pack(pady=(40, 0))
 
         CTkButton(
             frame,
@@ -93,7 +90,7 @@ class HomePage(CTkScrollableFrame):
         """
         self.__hero().pack()
         self.__section_title().pack(pady=40)
-        self.__featured_products().pack(pady=(0,40))
+        self.__featured_products().pack(pady=(0, 40))
         self.__banner().pack(fill='both')
 
         return self
