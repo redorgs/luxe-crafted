@@ -1,9 +1,12 @@
 # pylint: disable=C0114, E0401, E0611
 
+from functools import partial
 from customtkinter import CTkScrollableFrame
 from config import app
 from views.components.top_bar import TopBarComponent
 from views.components.table import TableComponent
+from views.pages.detail_history import DetailHistoryPage
+from utils.navigation import switch_page
 
 class HistoryPage(CTkScrollableFrame):
     """
@@ -24,22 +27,22 @@ class HistoryPage(CTkScrollableFrame):
             [
                 ['Order #8912', 660],
                 ['Processing', 150],
-                ['View', 50, app.COLOR_DARK]
+                ['View', 50, app.COLOR_DARK, partial(switch_page, DetailHistoryPage)]
             ],
             [
                 ['Ordeasfasdfr #8912', 660],
                 ['Processing', 150],
-                ['View', 50, app.COLOR_DARK]
+                ['View', 50, app.COLOR_DARK, partial(switch_page, DetailHistoryPage)]
             ],
             [
                 ['Order aksjdhf lkasdfl#8912', 660],
                 ['Processing', 150],
-                ['View', 50, app.COLOR_DARK]
+                ['View', 50, app.COLOR_DARK, partial(switch_page, DetailHistoryPage)]
             ],
             [
                 ['Order a sdf#8912', 660],
                 ['Processing', 150],
-                ['View', 50, app.COLOR_DARK]
+                ['View', 50, app.COLOR_DARK, partial(switch_page, DetailHistoryPage)]
             ],
         ]
 

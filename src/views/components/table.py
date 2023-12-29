@@ -54,6 +54,7 @@ class TableComponent(CTkFrame):
                     width=row[1],
                     fg_color='#333' if is_stripe else 'transparent',
                     hover_color=row[2],
+                    command=row[3],
                 ).pack(pady=16) # Windows: 16, Mac: 20
 
                 button.pack(side='left', ipadx=22)

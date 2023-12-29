@@ -1,5 +1,6 @@
 # pylint: disable=C0114, E0401, E0611
 
+from functools import partial
 from customtkinter import CTkScrollableFrame
 from config import app
 from views.components.top_bar import TopBarComponent
@@ -29,21 +30,21 @@ class CartPage(CTkScrollableFrame):
                 ['50000', 50],
                 ['1', 50],
                 ['50000', 50],
-                ['Remove', 50, app.COLOR_DANGER]
+                ['Remove', 50, app.COLOR_DANGER, partial(print, 'hello')]
             ],
             [
                 ['Fancy Chair', 150],
                 ['50000', 50],
                 ['1', 50],
                 ['50000', 50],
-                ['Remove', 50, app.COLOR_DANGER]
+                ['Remove', 50, app.COLOR_DANGER, partial(print, 'hello')]
             ],
             [
                 ['Fancy Chair', 150],
                 ['50000', 50],
                 ['1', 50],
                 ['50000', 50],
-                ['Remove', 50, app.COLOR_DANGER]
+                ['Remove', 50, app.COLOR_DANGER, partial(print, 'hello')]
             ],
         ]
 
