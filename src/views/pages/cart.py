@@ -16,13 +16,44 @@ class CartPage(CTkScrollableFrame):
         self.configure(corner_radius=0)
         self.title = 'Cart'
 
+        self.thead = [
+            ['Product', 150],
+            ['Price', 50],
+            ['Quantity', 50],
+            ['Subtotal', 50],
+            ['', 50],
+        ]
+        self.tbody = [
+            [
+                ['Fancy Chair', 150],
+                ['50000', 50],
+                ['1', 50],
+                ['50000', 50],
+                ['Remove', 50, app.COLOR_DANGER]
+            ],
+            [
+                ['Fancy Chair', 150],
+                ['50000', 50],
+                ['1', 50],
+                ['50000', 50],
+                ['Remove', 50, app.COLOR_DANGER]
+            ],
+            [
+                ['Fancy Chair', 150],
+                ['50000', 50],
+                ['1', 50],
+                ['50000', 50],
+                ['Remove', 50, app.COLOR_DANGER]
+            ],
+        ]
+
     def render(self):
         """
         Renders the home page.
         """
 
         TopBarComponent(self).render()
-        TableComponent(self).render().pack(side='left', padx=(30,0), pady=(30,0))
+        TableComponent(self, self.thead, self.tbody).render().pack(side='left', padx=(30,0), pady=(30,0), anchor='n')
         CheckoutDetailComponent(self).render().pack(side='right', padx=30, pady=(30,0), fill='both', expand=True)
 
         return self

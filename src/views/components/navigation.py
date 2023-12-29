@@ -7,6 +7,7 @@ from utils.navigation import switch_page
 from views.pages.home import HomePage
 from views.pages.products import ProductsPage
 from views.pages.cart import CartPage
+from views.pages.history import HistoryPage
 
 class Navigation(CTkFrame):
     """
@@ -42,16 +43,6 @@ class Navigation(CTkFrame):
 
         return frame
 
-    def __menu(self):
-        """
-        The links of the application.
-        """
-        frame = CTkFrame(self)
-
-        self.__link(frame, CartPage)
-
-        return frame
-
     def __link(self, master, to):
         """
         The button of the link.
@@ -74,6 +65,17 @@ class Navigation(CTkFrame):
         button.pack(ipady=5)
 
         return button
+
+    def __menu(self):
+        """
+        The links of the application.
+        """
+        frame = CTkFrame(self)
+
+        self.__link(frame, CartPage)
+        self.__link(frame, HistoryPage)
+
+        return frame
 
     def render(self):
         """
