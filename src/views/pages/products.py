@@ -21,7 +21,7 @@ class ProductsPage(CTkScrollableFrame):
         frame = CTkFrame(self)
 
         for i in range(0, 10):
-            Card(frame, 'Chairs', '50000', "assets/images/product1.jpg").set_size('sm').render().grid(row=i, column=0)
+            Card(frame, 'Chairs', '50000', "assets/images/product2.jpg").set_size('sm').render().grid(row=i, column=0)
             Card(frame, 'Bean Bags', '75000', "assets/images/product1.jpg").set_size('sm').render().grid(row=i, column=1)
             Card(frame, 'Sofas', '100000', "assets/images/product1.jpg").set_size('sm').render().grid(row=i, column=2)
             Card(frame, 'Tables', '150000', "assets/images/product1.jpg").set_size('sm').render().grid(row=i, column=3)

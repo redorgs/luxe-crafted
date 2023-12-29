@@ -15,7 +15,7 @@ class App(CTk):
         self.geometry(app.RESOLUTION)
         self.resizable(0,0)
         self.wm_iconbitmap()
-        self.iconphoto(False, ImageTk.PhotoImage(file='assets/images/avatar.jpg'))
+        self.iconphoto(False, ImageTk.PhotoImage(file='assets/images/logo/lc.png'))
 
         # Development Only
         set_appearance_mode("dark")

@@ -19,17 +19,10 @@ class HomePage(CTkScrollableFrame):
         """
         Renders the hero section of the home page.
         """
-        hero_image = Image.open("assets/images/hero.jpeg")
-        image_height = hero_image.size[1]
-        hero_image = hero_image.crop((
-            0,
-            100,
-            self.winfo_screenwidth() - 120,
-            image_height - 100
-        ))
+        hero_image = Image.open("assets/images/backgrounds/hero.png")
         hero_image = CTkImage(
             light_image=hero_image,
-            size=(self.winfo_screenwidth(), 500)
+            size=(1065, 550)
         )
 
         return CTkLabel(
@@ -54,15 +47,15 @@ class HomePage(CTkScrollableFrame):
         """
         frame = CTkFrame(self)
 
-        Card(frame, 'Chairs', '50000', "assets/images/product1.jpg").render().grid(row=0, column=0)
-        Card(frame, 'Bean Bags', '75000', "assets/images/product1.jpg").render().grid(row=0, column=1)
-        Card(frame, 'Sofas', '100000', "assets/images/product1.jpg").render().grid(row=0, column=2)
-        Card(frame, 'Tables', '150000', "assets/images/product1.jpg").render().grid(row=0, column=3)
+        Card(frame, 'Chairs', '50000', "assets/images/products/product1.jpg").render().grid(row=0, column=0)
+        Card(frame, 'Bean Bags', '75000', "assets/images/products/product1.jpg").render().grid(row=0, column=1)
+        Card(frame, 'Sofas', '100000', "assets/images/products/product1.jpg").render().grid(row=0, column=2)
+        Card(frame, 'Tables', '150000', "assets/images/products/product1.jpg").render().grid(row=0, column=3)
 
-        Card(frame, 'Dressers', '50000', "assets/images/product1.jpg").render().grid(row=1, column=0)
-        Card(frame, 'Beds', '75000', "assets/images/product1.jpg").render().grid(row=1, column=1)
-        Card(frame, 'Mattresses', '100000', "assets/images/product1.jpg").render().grid(row=1, column=2)
-        Card(frame, 'Nightstands', '150000', "assets/images/product1.jpg").render().grid(row=1, column=3)
+        Card(frame, 'Dressers', '50000', "assets/images/products/product1.jpg").render().grid(row=1, column=0)
+        Card(frame, 'Beds', '75000', "assets/images/products/product1.jpg").render().grid(row=1, column=1)
+        Card(frame, 'Mattresses', '100000', "assets/images/products/product1.jpg").render().grid(row=1, column=2)
+        Card(frame, 'Nightstands', '150000', "assets/images/products/product1.jpg").render().grid(row=1, column=3)
 
 
         return frame
