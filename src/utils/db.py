@@ -12,6 +12,7 @@ class DB:
         self.__where_query = ''
         self.__where_bind_data = ()
         self.__table = table
+        self.__order_by = ''
 
     def __setWhereQuery(self, column, operator):
         '''
@@ -77,6 +78,22 @@ class DB:
 
         return self
 
+    def orderBy(self, column, order):
+        '''
+        Set the ORDER BY clause for sorting data
+        Accepts arguments to specify conditions
+        e.g., orderBy('name', 'ASC') or orderBy('age', 'DESC')
+        '''
+
+        if order not in ('ASC', 'DESC'):
+            raise Exception(
+                'invalid order parameter. Only ASC and DESC are allowed'
+            )
+
+        self.__order_by = f' ORDER BY {column} {order}'
+
+        return self
+
     def create(self, payload):
         '''
         Create a new record in the database table
@@ -106,7 +123,8 @@ class DB:
         Execute the query and return the results
         '''
 
-        query = f'SELECT * FROM {self.__table}{self.__where_query}'
+        query = f'SELECT * FROM {self.__table}{
+            self.__where_query} {self.__order_by}'
 
         self.__cursor.execute(query, self.__where_bind_data)
         result = self.__cursor.fetchall()

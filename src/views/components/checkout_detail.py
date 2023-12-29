@@ -12,11 +12,12 @@ class CheckoutDetailComponent(CTkFrame):
     Checkout detail component.
     """
 
-    def __init__(self, master, total, button_text, **kwargs):
+    def __init__(self, master, total, button_text, command, **kwargs):
         super().__init__(master, **kwargs)
 
         self.total = total
         self.button_text = button_text
+        self.command = command
 
     def __cart_total(self, master):
         """
@@ -95,15 +96,7 @@ class CheckoutDetailComponent(CTkFrame):
             bg_color=app.COLOR_DARK,
             hover_color='#222',
             corner_radius=0,
-            command=partial(
-                switch_page,
-                partial(
-                    import_module(
-                        'views.pages.checkout'
-                    ).CheckoutPage,
-                    self.total
-                )
-            )
+            command=self.command
         ).pack(fill='x', ipady=20)
 
         return frame

@@ -1,7 +1,11 @@
 # pylint: disable=C0114, E0401, E0611
 
-from customtkinter import CTkScrollableFrame, CTkFrame, CTkLabel, CTkButton, CTkEntry
+from functools import partial
+import importlib
+from customtkinter import CTkScrollableFrame, CTkFrame, CTkLabel, CTkEntry
 from config import app
+from utils.db import DB
+from utils.navigation import switch_page
 from views.components.top_bar import TopBarComponent
 from views.components.checkout_detail import CheckoutDetailComponent
 
@@ -69,6 +73,30 @@ class CheckoutPage(CTkScrollableFrame):
 
         return frame
 
+    def __checkout_process(self):
+        """
+        The checkout process.
+        """
+        purchase_history_id = DB('purchase_history').create({
+            'user_id': app.USER_LOGIN
+        })
+        DB('order_tracking').create({
+            'purchase_history_id': purchase_history_id,
+            'status': 'Pending',
+            'description': 'Your order is being processed.'
+        })
+        DB('product_cart').where('user_id', app.USER_LOGIN).delete()
+        switch_page(
+            partial(
+                importlib.import_module(
+                    'views.pages.detail_history').DetailHistoryPage,
+                DB('order_tracking').where(
+                    'purchase_history_id',
+                    purchase_history_id
+                ).get()
+            )
+        )
+
     def render(self):
         """
         Renders the home page.
@@ -76,7 +104,12 @@ class CheckoutPage(CTkScrollableFrame):
 
         TopBarComponent(self).render()
         self.__form(self).pack(side='left', padx=(30, 0), pady=(30, 0))
-        CheckoutDetailComponent(self, self.total, 'Checkout').render().pack(
+        CheckoutDetailComponent(
+            self,
+            self.total,
+            'Checkout',
+            self.__checkout_process
+        ).render().pack(
             side='right',
             padx=30,
             pady=(30, 0),
