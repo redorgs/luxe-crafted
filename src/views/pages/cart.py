@@ -110,7 +110,7 @@ class CartPage(CTkScrollableFrame):
             width=0,
             fg_color='transparent' if is_even else app.COLOR_DARK,
             hover_color=app.COLOR_DANGER,
-        ).pack(pady=20)
+        ).pack(pady=16) # Windows: 16, Mac: 20
 
         button.pack(side='left', ipadx=22)
 
